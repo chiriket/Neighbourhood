@@ -14,9 +14,9 @@ class Neighbourhood(models.Model):
     def delete_neigbourhood(self):
         self.delete()
 
-    def update_neighbour(self, update):
-        self.photo_location = update
-        self.save()
+    # def update_neighbour(self, update):
+    #     self.photo_location = update
+    #     self.save()
 
     @classmethod
     def find_neighbourhood_id(cls, id):
