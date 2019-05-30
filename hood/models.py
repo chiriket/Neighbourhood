@@ -6,7 +6,7 @@ class Neighbourhood(models.Model):
     name  = models.CharField(max_length=30)  
     location = models.CharField(max_length =10)
     occupants = models.ForeignKey(User, null = True,related_name='business')
-    admin = models.ForeignKey(Admin, null=True, blank=True, on_delete=models.CASCADE)
+    admin = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     
     def save_neighbourhood(self):
         self.save()
