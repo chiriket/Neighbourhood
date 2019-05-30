@@ -29,7 +29,7 @@ class User(models.Model):
     first_name = models.CharField(max_length =30)
     last_name = models.CharField(max_length =30)
     email = models.EmailField()
-    neighbourhood = models.ForeignKey(Foreign, null=true)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
 
     def __str__(self):
        return self.first_name
@@ -50,5 +50,5 @@ class Business (models.Model):
     name = models.CharField(max_length=50,blank=True)
     image = models.ImageField(upload_to = 'images/')
     user = models.ForeignKey(User, null = True,related_name='user')
-    neighbourhood = models.ForeignKey(NeighborHood, null = True,related_name='business')
+    neighbourhood = models.ForeignKey(Neighbourhood, null = True,related_name='business')
     email = models.EmailField()
