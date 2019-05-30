@@ -1,3 +1,50 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+
+class Neighbourhood(models.Model):
+    name  = models.CharField(max_length=30)  
+    location = models.CharField(max_length =10)
+    occupants = models.ForeignKey(User, null = True,related_name='business')
+    admin = models.ForeignKey(Admin, null=True, blank=True, on_delete=models.CASCADE)
+    
+    def save_neighbourhood(self):
+        self.save()
+
+    def delete_neigbourhood(self):
+        self.delete()
+
+    @classmethod
+    def find_neighbourhood_id(cls, id):
+        neighbourhood = Neighbourhood.objects.get(pk=id)
+        return neighbourhood
+
+class User(models.Model):
+    photo = models.ImageField(upload_to = 'images/',blank=True)
+    Bio = models.TextField(max_length = 50,null = True)
+    first_name = models.CharField(max_length =30)
+    last_name = models.CharField(max_length =30)
+    email = models.EmailField()
+    neighbourhood = models.ForeignKey(Foreign, null=true)
+
+    def __str__(self):
+       return self.first_name
+
+    def save_user(self):
+        self.save()
+
+    def delete_user(self):
+        self.delete()
+
+    @classmethod
+    def get_users(cls):
+        profiles = cls.objects.all()
+        return profiles
+    
+   
+class Business (models.Model):
+    name = models.CharField(max_length=50,blank=True)
+    image = models.ImageField(upload_to = 'images/')
+    user = models.ForeignKey(User, null = True,related_name='user')
+    neighbourhood = models.ForeignKey(NeighborHood, null = True,related_name='business')
+    email = models.EmailField()
