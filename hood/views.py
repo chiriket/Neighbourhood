@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.db import models
 from django.http import Http404
-from .forms import ProjectForm,ProfileForm,ReviewForm
+from .forms import NeighbourhoodForm,BusinessForm
 
 # Create your views here.
 def index(request):
@@ -29,7 +29,7 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
-def profile(request):
+def user(request):
     current_user = request.user
     profile = Profile.objects.get(user=current_user.id)
     # print(profile.id)
