@@ -52,3 +52,8 @@ class Business (models.Model):
     user = models.ForeignKey(User, null = True,related_name='user')
     neighbourhood = models.ForeignKey(Neighbourhood, null = True,related_name='business')
     email = models.EmailField()
+
+    @classmethod
+    def search_by_neighbourhood(cls,search_term):
+        business = cls.objects.filter(neighbourhood__icontains=search_term)
+        return business
