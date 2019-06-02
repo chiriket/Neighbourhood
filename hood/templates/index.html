@@ -3,9 +3,9 @@
 {% block content %}
 {{block.super}}
 
-<div style="background-color:#6aebbd;" id="main" class="container-fluid blue " >
+<div style="background-image:#6aebbd;" id="main" class="container-fluid blue " >
 
-    <h1 style="text-align:center; color:rgb(253, 253, 253);" > <img float="right" src="" alt="" height="150px"> AWARDS </h1>
+    <h1 style="text-align:center; color:rgb(253, 253, 253);" > <img float="right" src="" alt="" height="150px"> Hoodwatch</h1>
     <h6 style="text-align:center; color:rgb(253, 253, 253);">{{date|date:"l d-F Y"}}</h6>
     <div class="mail">
             <form role="search" action="{% url 'search_results' %}">
@@ -13,169 +13,31 @@
                 <button style="border:0px;" type="submit" class="formButton">Search</button>
         </form>
     </div>
-    <div>
-        <br>
-        <br>
-        <br>
-        <div style="background-color:rgb(236, 244, 245);" class="row">
-            
-                {% for photos_item in photos %}
-            <div class="col-md-6">
-                <div style="background-color: #4a696d;" class="card">
-                        <div class="card-title">
-                                {% if photos_item.profile.profile_pic %}
-                                <section data-toggle="modal" data-target="#modalLoginAvatar"> <img  style="border-radius: 50% ; padding: 0.15rem;  width: 45px; background: linear-gradient(to right bottom, #2cd88888, #2ec96970);" class=" img-circle"
-                                src="{{ photos_item.profile.profile_pic.url}}" alt="" width="50px" height="50px""> <a href="/profiles/{{ photos_item.profile.user.id}}" style="color:black">{{ photos_item.profile.user.username}}</a>  </section> <br>
-                                {% else %}
-                                <img data-toggle="modal" data-target="#modalLoginAvatar" style="border-radius: 50% ; padding: 0.15rem;  width: 45px; background: linear-gradient(to right bottom, #2cd88888, #2ec96970);" class=" img-circle"
-                                src="https://www.bristolbrewing.com/wp-content/uploads/2017/08/default-avatar.png" alt="" width="50px" height="50px""> <a href="/profiles/{{ photos_item.profile.user.id}}" style="color:black">{{ photos_item.profile.user.username}}</a></section> <br> 
-                                                
-                                {% endif %}
+ 
+    <div class="container">
+        <hr>  <a href="{% url 'new-hood'%}"><button class="btn btn-outline-light btn-sm">Create a Hood</button></a>  <hr>
+        <div class="row">
+            {% for hood in hoods%}
+                <div class="col-md-4 col-lg-4 col-sm-6 ">
+                    <div style="" class="card">
+                        <div style="text-align:center; color:antiquewhite; background-color:rgb(10, 10, 10);" class="card-header">
+                            <h5>{{ hood.name}}</h5>
                         </div>
-                        
-                        <p>{{ photos_item.image_caption | truncatechars:100 }}</p>
-                        
-                        <a href="/projects/{{ photos_item.id}}"><p style="text-align: center;"><img data-image-id="{{photos_item.id}}" data-toggle="modal" data-target="#{{photos_item.id}}" class="" src="{{photos_item.image.url}}" alt="pic"  height="410px" width="620px"></p></a> 
-                                                 
-                        <small style="font-family: 'Oregano', cursive;">Posted {{photos_item.posted_time|timesince}} ago</small>
-                        
-                        <h4>Reviews</h4>
-                        <h6 class="Reviews">
-                               
-                                {% for review in photos_item.comments.all %}
-                                <h6 class="">
-                                        <a class="user">
-                                        <em>{{ review.user.username }}</em>
-                                    </a>
-                                    <span class="">{{ review.comment }}</span>
-                                    </h6>
-                                {% endfor %}
-                
-                
-                
-                                            {% if request.user.is_authenticated %}
-                                          <section class="input-row">
-                                            <i class="" aria-hidden="true"></i>
-                                            <div class="comment-input-wrapper">
-                                                <form action="{% url 'comment' image_id=photos_item.id %}" method="post">
-                                                    {% csrf_token %}
-                                                   
-                                                    <!-- <button type='submit' class='btn btn-primary'>Review</button> -->
-                                                </form>
-                                            </div>
-                                            <div class="hidden-data {{ image.pk }}" style="display: none;">
-                                              <span class="image-pk">{{ image.pk }}</span>
-                                            </div>
-                                          </section>
-                                        {% endif %}
-                                        
-                            </h6>
-                        <!--  -->
-                        
-                </div>
-            </div>
-            <br>
-            <br>
-            <br>
-                <br>   
-        {% endfor %}
-        {% for data in project %}
-    
-        <div class="col-md-4">
-            
-            <div class="hovereffect">
-                    <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#myModal">
-                <img class="img-responsive" src="{{data.screenshot.url}}" alt="Card image cap" width="300px;" heigth="300px;">
-                </button>
-                <div class="overlay">
-                    <a class="info" href="{% url 'vote' data.pk %}">VOTE NOW</a>
-                    <h6>Star Rating</h6>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-            </div>
-            <div class="card-header">
-                <h5 class="card-title">{{data.project_name}}</h5>
-                <a href="{{data.project_url}}" class="card-text" target="blank">
-                    <buttton class="btn btn-outline-primary" >Visit site</button>
-                </a>
-            </div>
-            <div class="card-footer">
-                    <a href="profile/{{data.profile.user.username}}/">
-                        <div class="row">
-                            <div class="">
-                                {% if data.profile.Profile_photo %}
-                                <img src="{{data.profile.Profile_photo.url}}" alt="img" width="40px" height="40px"
-                                    style="border-radius: 50%; margin-left: 10px;" class="img-responsive">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-2" style="color:black;font-size: 10px;font-weight: bold;">
-                                <h4 class="card-title">{{data.profile.user.username}}</h4>
-                            </div>
+                        <div style="text-align:center; background-color:rgb(10, 10, 10);" class="card-image">
+                            
+                                <img class="img-responsive" src="{{hood.image.url}}" alt="" height="200px" width="300px">
+                            
                         </div>
-                    </a>
-                <small class="text-muted">{{data.pub_date|timesince}}</small>
-            </div>
-        </div>
-
-        {% endfor %}
-
-    
-
-   
-</div>
-
-{% for data in project %}
-<div class="modal" id="myModal" role="dialog">
-        <div class="modal-dialog">
-    
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img class="img-responsive" src="{{data.screenshot.url}}"  width="300px;" heigth="300px;">
+                        <div style="background-color:rgb(10, 10, 10);" class="card-footer"> 
+                            <a href="/hoods/{{ hood.id}}"> <button class="btn btn-outline-primary btn-sm">Join Hood &#8594;</button> </a>
+                        </div>
+                    </div>
+                    <br>
+                <br>
                 </div>
-    
-            </div>
+                
+            {% endfor%}
         </div>
-    </div>
-    {% endfor %}
-
-<div class="jumbotron">
-    <div class="row">
-        
-    {% for item in rate %}
-    <div class="col-md-2">
-        <h6>{{request.user}}</h6>
-    </div>
-    <div class="col-md-2">
-        <h6>
-            <strong> Design </strong>
-        </h6>
-        {{item.design}}
-    </div>
-    <div class="col-md-2">
-        <h6>
-            <strong> Creativity </strong>
-        </h6>
-        {{item.creativity}}
-    </div>
-    <div class="col-md-3">
-        <h6>
-            <strong> Usability </strong>
-        </h6>
-        {{item.usability}}
-    </div>
-    <div class="col-md-3">
-        <h6>
-            <strong> Average </strong>
-        </h6>
-        {{item.average}}
-    </div>
-    {% endfor %}
-</div>
-</div>
-
+    </div>         
+  
 {% endblock %}
