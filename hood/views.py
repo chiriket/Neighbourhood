@@ -71,7 +71,7 @@ def profile(request):
 # @login_required(login_url='/accounts/login/')
 def new_neighbourhood(request):
     current_user = request.user
-    profile = Profile.objects.get(user=current_user)
+    # profile = Profile.objects.get(user=current_user)
     if request.method == 'POST':
         form = NeighbourhoodForm(request.POST, request.FILES)
         if form.is_valid():
