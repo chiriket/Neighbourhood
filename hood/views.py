@@ -42,7 +42,50 @@ def profile(request):
 
     return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details})
 
-# @login_required(login_url='/accounts/login')
+# # @login_required(login_url='/accounts/login')
+# def upload_business(request):
+#     if request.method == 'POST':
+#         uploadform = BusinessForm(request.POST, request.FILES)
+#         if uploadform.is_valid():
+#             upload = uploadform.save(commit=False)
+#             # upload.profile = request.user.profile
+#             upload.save()
+#             return redirect('index')
+#     else:
+#         uploadform = BusinessForm()
+#     return render(request,'upload_business.html',locals())
+
+# # @login_required(login_url='/accounts/login')
+# def new_hood(request):
+#     if request.method == 'POST':
+#         neighbourhoodform = NeighbourhoodForm(request.POST, request.FILES)
+#         if neighboourhoodform.is_valid():
+#             upload = neighbourhoodform.save(commit=False)
+#             upload.profile = request.user.profile
+#             upload.save()
+#             return redirect('home_page')
+#     else:
+#         neighbourhoodform = NeighbourhoodForm()
+#     return render(request,'new_hood.html',locals())
+
+# @login_required(login_url='/accounts/login/')
+def new_neighbourhood(request):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    if request.method == 'POST':
+        form = NeighbourhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            neighbourhood = form.save(commit=False)
+            neighbourhood.user = current_user
+            neighbourhood.profile = profile
+            neighbourhood.save()
+        return redirect('index')
+    else:
+        form = NeighbourhoodForm()
+    return render(request, 'new_hood.html', {"form": form})
+
+
+@login_required(login_url='/accounts/login')
 def upload_business(request):
     if request.method == 'POST':
         uploadform = BusinessForm(request.POST, request.FILES)
@@ -52,18 +95,6 @@ def upload_business(request):
             upload.save()
             return redirect('index')
     else:
-        uploadform = ProjectForm()
+        uploadform = BusinessForm()
     return render(request,'upload_business.html',locals())
 
-# @login_required(login_url='/accounts/login')
-def new_hood(request):
-    if request.method == 'POST':
-        neighbourhoodform = NeighbourhoodForm(request.POST, request.FILES)
-        if hoodform.is_valid():
-            upload = neighbourhoodform.save(commit=False)
-            upload.profile = request.user.profile
-            upload.save()
-            return redirect('home_page')
-    else:
-        neighbourhoodform = NeighbourhoodForm()
-    return render(request,'new_hood.html',locals())

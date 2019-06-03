@@ -26,14 +26,13 @@ class Neighbourhood(models.Model):
 class Profile(models.Model):
     photo = models.ImageField(upload_to = 'images/',blank=True)
     Bio = models.TextField(max_length = 50,null = True)
-    first_name = models.CharField(max_length =30)
-    last_name = models.CharField(max_length =30)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile',blank=True, null=True)
+    # first_name = models.CharField(max_length =30)
+    # last_name = models.CharField(max_length =30)
     email = models.EmailField()
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
 
-    def __str__(self):
-       return self.first_name
-
+    
     def save_profile(self):
         self.save()
 

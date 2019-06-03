@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#6aebbd" >
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:black" >
     <div class="container-fluid">
 
     {% if user.is_authenticated %}
     
-       {% if request.user.profile.profile_pic %}
+       {% if profile.profile_pic %}
             <section> <img style="border-radius: 50% ; padding: 0.15rem;   background: linear-gradient(to right bottom, rgb(20, 207, 224), rgb(20, 207, 224));" class=" img-circle"
             src="{{request.user.profile.profile_pic.url}}" alt="" width="50px" height="50px"> </section> <br>
        {% else %}
@@ -21,14 +21,13 @@
          
     {% endif %}      
           
-     <h6><a href="#" style="color: white;">{{ user.username|upper}}</a></h6> 
+     
       <hr>
-      <a href="/">Home</a>
-      <a href="/accounts/register/" style="color:black; font-size: 13px;">REGISTER </a>
+      <a href="/">Home</a><br><br>
+      <a href="/accounts/register/" style="color:white; font-size: 13px;">REGISTER </a>
       <a style="font-size:15px;" class='btn btn-default' href="/accounts/login">Login</a>
-      <a href="">Create Hood</a>
-      <a href="{% url 'new_hood' %}" class="btn btn-outline-primary">Create Hood</a>
-      <a href="{% url 'upload_business' %}" class="btn btn-outline-primary">Include Business</a>
+      <a href="{% url 'new_hood' %}" class="btn btn-default">Create Hood</a>
+      <a href="{% url 'upload_business' %}" class="btn btn-default">Add Business</a>
 
       
     </div>
