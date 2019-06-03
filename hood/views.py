@@ -42,6 +42,7 @@ def profile(request):
 
     return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details})
 
+# @login_required(login_url='/accounts/login')
 def upload_business(request):
     if request.method == 'POST':
         uploadform = BusinessForm(request.POST, request.FILES)
@@ -54,7 +55,7 @@ def upload_business(request):
         uploadform = ProjectForm()
     return render(request,'upload_business.html',locals())
 
-@login_required(login_url='/accounts/login')
+# @login_required(login_url='/accounts/login')
 def new_hood(request):
     if request.method == 'POST':
         neighbourhoodform = NeighbourhoodForm(request.POST, request.FILES)
