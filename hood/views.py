@@ -23,13 +23,13 @@ def search_results(request):
         searched_businesses = Business.search_by_neighbourhood(search_term)
         message = f"{search_term}"
 
-        return render(request, 'all-news/search.html',{"message":message,"businesses": searched_businesses})
+        return render(request, 'search.html',{"message":message,"businesses": searched_businesses})
 
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
-def user(request):
+def profile(request):
     current_user = request.user
     profile = Profile.objects.get(user=current_user.id)
     # print(profile.id)
@@ -42,3 +42,27 @@ def user(request):
 
     return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details})
 
+def upload_business(request):
+    if request.method == 'POST':
+        uploadform = ProjectForm(request.POST, request.FILES)
+        if uploadform.is_valid():
+            upload = uploadform.save(commit=False)
+            # upload.profile = request.user.profile
+            upload.save()
+            return redirect('index')
+    else:
+        uploadform = ProjectForm()
+    return render(request,'upload_business.html',locals())
+
+@login_required(login_url='/accounts/login')
+def new_hood(request):
+    if request.method == 'POST':
+        neighbourhoodform = NeighbourhoodForm(request.POST, request.FILES)
+        if hoodform.is_valid():
+            upload = neighbourhoodform.save(commit=False)
+            upload.profile = request.user.profile
+            upload.save()
+            return redirect('home_page')
+    else:
+        neighbourhoodform = NeighbourhoodForm()
+    return render(request,'new_hood.html',locals())

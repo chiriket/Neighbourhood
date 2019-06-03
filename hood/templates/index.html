@@ -3,7 +3,7 @@
 {% block content %}
 {{block.super}}
 
-<div style="background-image:#6aebbd;" id="main" class="container-fluid blue " >
+<div style="" id="main" class="container-fluid blue " >
 
     <h1 style="text-align:center; color:rgb(253, 253, 253);" > <img float="right" src="" alt="" height="150px"> Hoodwatch</h1>
     <h6 style="text-align:center; color:rgb(253, 253, 253);">{{date|date:"l d-F Y"}}</h6>
@@ -15,17 +15,17 @@
     </div>
  
     <div class="container">
-        <hr>  <a href="{% url 'new-hood'%}"><button class="btn btn-outline-light btn-sm">Create a Hood</button></a>  <hr>
+        <hr>  <a href="{% url 'new_hood'%}"><button class="btn btn-outline-light btn-sm">Create a Hood</button></a>  <hr>
         <div class="row">
             {% for hood in hoods%}
                 <div class="col-md-4 col-lg-4 col-sm-6 ">
                     <div style="" class="card">
                         <div style="text-align:center; color:antiquewhite; background-color:rgb(10, 10, 10);" class="card-header">
-                            <h5>{{ hood.name}}</h5>
+                            <h5>{{neighbourhood.name}}</h5>
                         </div>
                         <div style="text-align:center; background-color:rgb(10, 10, 10);" class="card-image">
                             
-                                <img class="img-responsive" src="{{hood.image.url}}" alt="" height="200px" width="300px">
+                                <img class="img-responsive" src="{{neighbourhood.image.url}}" alt="" height="200px" width="300px">
                             
                         </div>
                         <div style="background-color:rgb(10, 10, 10);" class="card-footer"> 

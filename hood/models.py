@@ -23,7 +23,7 @@ class Neighbourhood(models.Model):
         neighbourhood = Neighbourhood.objects.get(pk=id)
         return neighbourhood
 
-class User(models.Model):
+class Profile(models.Model):
     photo = models.ImageField(upload_to = 'images/',blank=True)
     Bio = models.TextField(max_length = 50,null = True)
     first_name = models.CharField(max_length =30)
@@ -34,14 +34,14 @@ class User(models.Model):
     def __str__(self):
        return self.first_name
 
-    def save_user(self):
+    def save_profile(self):
         self.save()
 
-    def delete_user(self):
+    def delete_profile(self):
         self.delete()
 
     @classmethod
-    def get_users(cls):
+    def get_profiles(cls):
         profiles = cls.objects.all()
         return profiles
     
