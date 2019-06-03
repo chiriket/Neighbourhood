@@ -44,7 +44,7 @@ def profile(request):
 
 def upload_business(request):
     if request.method == 'POST':
-        uploadform = ProjectForm(request.POST, request.FILES)
+        uploadform = BusinessForm(request.POST, request.FILES)
         if uploadform.is_valid():
             upload = uploadform.save(commit=False)
             # upload.profile = request.user.profile
