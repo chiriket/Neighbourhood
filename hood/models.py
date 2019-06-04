@@ -31,6 +31,9 @@ class Neighbourhood(models.Model):
         neighbourhood = Neighbourhood.objects.filter(profile__pk = profile)
         return neighbourhood
 
+  
+    
+
 class Profile(models.Model):
     photo = models.ImageField(upload_to = 'images/',blank=True)
     Bio = models.TextField(max_length = 50,null = True)

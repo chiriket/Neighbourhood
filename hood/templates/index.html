@@ -5,31 +5,32 @@
 
 <div style="" id="main" class="container-fluid blue " >
 
-    <h1 style="text-align:center; color:rgb(253, 253, 253);" > <img float="right" src="" alt="" height="150px"> Hoodwatch</h1>
+    <h1 style="text-align:center; color:rgb(253, 253, 253);" > <img float="right" src="" alt="" height="150px"></h1>
     <h6 style="text-align:center; color:rgb(253, 253, 253);">{{date|date:"l d-F Y"}}</h6>
-    <div class="mail">
-            <form role="search" action="{% url 'search_results' %}">
-                <input type="text" name="username" class="formStyle" placeholder="Search" required >
-                <button style="border:0px;" type="submit" class="formButton">Search</button>
-        </form>
-    </div>
+
  
     <div class="container">
-        <hr>  <a href="{% url 'new_hood'%}"><button class="btn btn-outline-light btn-sm">Create a Hood</button></a>  <hr>
+        <hr>  <a href="{% url 'new_neighbourhood'%}"><button class="btn btn-outline-light btn-sm">Create a Hood</button></a>  <hr>
         <div class="row">
-            {% for hood in hoods%}
+            {% for new_neighbourhood in neighbourhood%}
                 <div class="col-md-4 col-lg-4 col-sm-6 ">
                     <div style="" class="card">
                         <div style="text-align:center; color:antiquewhite; background-color:rgb(10, 10, 10);" class="card-header">
-                            <h5>{{neighbourhood.name}}</h5>
+                            <h5>Name : {{new_neighbourhood.name}}</h5>
+                            <h5>Location : {{new_neighbourhood.location}}</h5>
                         </div>
+                        {% if new_neighbourhood.image%}
                         <div style="text-align:center; background-color:rgb(10, 10, 10);" class="card-image">
                             
-                                <img class="img-responsive" src="{{neighbourhood.image.url}}" alt="" height="200px" width="300px">
+                                <img class="img-responsive" src="{{new_neighbourhood.image.url}}" alt="image" height="200px" width="300px">
                             
                         </div>
+                        {% else %}
+                        
+                        {% endif %}
                         <div style="background-color:rgb(10, 10, 10);" class="card-footer"> 
-                            <a href="/hoods/{{ hood.id}}"> <button class="btn btn-outline-primary btn-sm">Join Hood &#8594;</button> </a>
+                            <a href="/hoods/{{ hood.id}}"> <button class="btn btn-outline-primary btn-sm">Join &#8594;</button> </a>
+                            <h5> occupants :{{new_neighbourhood.occupants}}</h5>
                         </div>
                     </div>
                     <br>

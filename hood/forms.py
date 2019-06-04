@@ -6,7 +6,7 @@ from .models import Neighbourhood, Business,Profile
 class NeighbourhoodForm(forms.ModelForm):
     class Meta:
         model = Neighbourhood
-        exclude = ['admin']
+        exclude = ['admin,occupants']
 
 
 class SignupForm(UserCreationForm):

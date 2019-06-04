@@ -8,13 +8,14 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.db import models
 from django.http import Http404
-from .forms import NeighbourhoodForm,BusinessForm
+from .forms import NeighbourhoodForm,BusinessForm,ProfileForm
 
 # Create your views here.
 def index(request):
     title = 'Home'
+    neighbourhood = Neighbourhood.objects.all()
    
-    return render(request, 'index.html', {'title':title})
+    return render(request, 'index.html', {'title':title ,'neighbourhood':neighbourhood})
 
 def search_results(request):
 
@@ -42,36 +43,11 @@ def profile(request):
 
     return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details})
 
-# # @login_required(login_url='/accounts/login')
-# def upload_business(request):
-#     if request.method == 'POST':
-#         uploadform = BusinessForm(request.POST, request.FILES)
-#         if uploadform.is_valid():
-#             upload = uploadform.save(commit=False)
-#             # upload.profile = request.user.profile
-#             upload.save()
-#             return redirect('index')
-#     else:
-#         uploadform = BusinessForm()
-#     return render(request,'upload_business.html',locals())
 
-# # @login_required(login_url='/accounts/login')
-# def new_hood(request):
-#     if request.method == 'POST':
-#         neighbourhoodform = NeighbourhoodForm(request.POST, request.FILES)
-#         if neighboourhoodform.is_valid():
-#             upload = neighbourhoodform.save(commit=False)
-#             upload.profile = request.user.profile
-#             upload.save()
-#             return redirect('home_page')
-#     else:
-#         neighbourhoodform = NeighbourhoodForm()
-#     return render(request,'new_hood.html',locals())
-
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def new_neighbourhood(request):
     current_user = request.user
-    # profile = Profile.objects.get(user=current_user)
+    
     if request.method == 'POST':
         form = NeighbourhoodForm(request.POST, request.FILES)
         if form.is_valid():
@@ -82,7 +58,17 @@ def new_neighbourhood(request):
         return redirect('index')
     else:
         form = NeighbourhoodForm()
-    return render(request, 'new_hood.html', {"form": form})
+    return render(request, 'new_neighbourhood.html', {"form": form})
+
+
+
+@login_required(login_url='/accounts/login/')
+def hoods(request,id):
+    date = dt.date.today()
+    post=Neighbourhood.objects.get(id=id)
+   
+    business = Business.objects.filter(neighbourhood=post)
+    return render(request,'neighbourhood.html',{"post":post,"date":date, "business":business})
 
 def edit_profile(request):
     if request.method == 'POST':
@@ -110,4 +96,5 @@ def upload_business(request):
     else:
         uploadform = BusinessForm()
     return render(request,'upload_business.html',locals())
+
 
