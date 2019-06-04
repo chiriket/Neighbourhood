@@ -8,8 +8,13 @@ urlpatterns=[
   url(r'^profile/$',views.profile,name='profile'),
   url(r'^search/', views.search_results, name='search_results'),
   url(r'^upload/$', views.upload_business, name='upload_business'),
-  url(r'^hood/$', views.new_neighbourhood, name='new_neighbourhood'),
+  url(r'^new_neighbourhood/$', views.new_neighbourhood, name='new_neighbourhood'),
+  url(r'^hood/(?P<id>\d+)', views.hood, name='hood'),
+  url(r'^business/', views.business, name='business'),
   url(r'^accounts/edit/',views.edit_profile, name='edit_profile'),
+  url(r'hood/$', views.hood, name='hood'),
+  url(r'^business/(?P<hood_id>\d+)', views.business, name='business'),
+  url(r'^post/$', views.add_post,name='add_post'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

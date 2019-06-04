@@ -17,7 +17,7 @@
                     <div style="" class="card">
                         <div style="text-align:center; color:antiquewhite; background-color:rgb(10, 10, 10);" class="card-header">
                             <h5>Name : {{new_neighbourhood.name}}</h5>
-                            <h5>Location : {{new_neighbourhood.location}}</h5>
+                            <h5>Location :{{new_neighbourhood.location}}</h5>
                         </div>
                         {% if new_neighbourhood.image%}
                         <div style="text-align:center; background-color:rgb(10, 10, 10);" class="card-image">
@@ -29,7 +29,7 @@
                         
                         {% endif %}
                         <div style="background-color:rgb(10, 10, 10);" class="card-footer"> 
-                            <a href="{{ url 'join' neighborhood_id=hood.id }}"> <button class="btn btn-outline-primary btn-sm">Join &#8594;</button> </a>
+                            <a href="{% url 'hood' %}"> <button class="btn btn-outline-primary btn-sm">Join &#8594;</button> </a>
                             <h5> occupants :{{new_neighbourhood.occupants}}</h5>
                         </div>
                     </div>

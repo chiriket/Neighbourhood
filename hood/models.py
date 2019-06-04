@@ -68,7 +68,40 @@ class Business (models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, null = True,related_name='business')
     email = models.EmailField()
 
+    class Meta:
+     ordering = ['-pk']
+
+    def save_business(self):
+        self.save()
+
+    @classmethod
+    def get_business(cls, profile):
+        business = Business.objects.filter(Profile__pk = profile)
+        return business
+
     @classmethod
     def search_by_neighbourhood(cls,search_term):
         business = cls.objects.filter(neighbourhood__icontains=search_term)
         return business
+
+class Post(models.Model):
+    name = models.CharField(max_length=50,blank=True)
+    image = models.ImageField(upload_to = 'images/')
+    description = models.TextField(max_length = 50,null = True)
+    user = models.ForeignKey(User, null = True,related_name='post')
+    pub_date = models.DateTimeField(auto_now_add=True, null=True)
+    neighbourhood = models.ForeignKey(Neighbourhood, null = True,related_name='posts')
+    
+    def save_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
+
+    @classmethod
+    def get_hood_posts(cls,id):
+        posts = Post.objects.filter(id = id)
+        return posts
+
+    
+    

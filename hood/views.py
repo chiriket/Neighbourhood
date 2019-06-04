@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.db import models
 from django.http import Http404
-from .forms import NeighbourhoodForm,BusinessForm,ProfileForm
+from .forms import NeighbourhoodForm,BusinessForm,ProfileForm,PostForm
 
 # Create your views here.
 def index(request):
@@ -30,13 +30,36 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
-# @login_required(login_url='/accounts/login')
-def join(request,neighbourhood_id):
-    hood = NeighbourHood.objects.get(id=neighborhood_id)
-    current_user = request.user
-    current_user.profile.neighbourhood = hood
-    current_user.profile.save()
-    return redirect('hood',neighbourhood_id)
+@login_required(login_url='/accounts/login/')
+def hood(request):
+    date = dt.date.today()
+    # hood = NeighbourHood.objects.get(id=id)
+    return render(request, 'hood.html', locals())
+
+@login_required(login_url='/accounts/login')
+def add_post(request):
+    # hood = Neighbourhood.objects.get(id=request.user.profile.neighborhood)
+    if request.method == 'POST':
+        postform = PostForm(request.POST, request.FILES)
+        if postform.is_valid():
+            post = postform.save(commit=False)
+            # post.profile = request.profile
+            post.user = request.user
+            # post.neighborHood=request.user.profile.neighborhood
+            post.save()
+            return redirect('hood')
+    else:
+        postform = PostForm()
+    return render(request,'add_post.html',locals())
+
+
+@login_required(login_url='/accounts/login/')
+def business(request, hood_id):
+    date = dt.date.today()
+    print(date)
+    bs = Business.objects.filter(neighbourhood_id=hood_id)
+    print(bs)
+    return render(request, 'hood.html', locals())
 
 def profile(request):
     current_user = request.user
@@ -68,16 +91,7 @@ def new_neighbourhood(request):
         form = NeighbourhoodForm()
     return render(request, 'new_neighbourhood.html', {"form": form})
 
-
-
-@login_required(login_url='/accounts/login/')
-def hoods(request,id):
-    date = dt.date.today()
-    post=Neighbourhood.objects.get(id=id)
-   
-    business = Business.objects.filter(neighbourhood=post)
-    return render(request,'neighbourhood.html',{"post":post,"date":date, "business":business})
-
+@login_required(login_url='/accounts/login')
 def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
