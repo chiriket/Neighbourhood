@@ -30,6 +30,14 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
+# @login_required(login_url='/accounts/login')
+def join(request,neighbourhood_id):
+    hood = NeighbourHood.objects.get(id=neighborhood_id)
+    current_user = request.user
+    current_user.profile.neighbourhood = hood
+    current_user.profile.save()
+    return redirect('hood',neighbourhood_id)
+
 def profile(request):
     current_user = request.user
     profile = Profile.objects.get(user=current_user.id)

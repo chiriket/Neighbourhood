@@ -29,7 +29,7 @@
                         
                         {% endif %}
                         <div style="background-color:rgb(10, 10, 10);" class="card-footer"> 
-                            <a href="/hoods/{{ hood.id}}"> <button class="btn btn-outline-primary btn-sm">Join &#8594;</button> </a>
+                            <a href="{{ url 'join' neighborhood_id=hood.id }}"> <button class="btn btn-outline-primary btn-sm">Join &#8594;</button> </a>
                             <h5> occupants :{{new_neighbourhood.occupants}}</h5>
                         </div>
                     </div>
