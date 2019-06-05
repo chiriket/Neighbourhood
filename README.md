@@ -1,6 +1,7 @@
 ## Neighbourhood
 
 ### By Shirley Keter
+### JUN 2019
 
 ## Description
 Neighbourhood is a web application that enables one to keep in touch with their neighbourhood.Users are able to create and view others profile including neighbourhood name and location.Users can also find important contact information and diffent businesses within the neighbourhood.
