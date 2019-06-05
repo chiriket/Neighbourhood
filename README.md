@@ -16,7 +16,7 @@ Neighbourhood is a web application that enables one to keep in touch with their 
 * Postgres
 * python virtualenv
 * Clone the Repo
-* Run the following command on the terminal: git clone https://github.com/chiriket/Instagram.git && cd Instagram
+* Run the following command on the terminal: git clone https://github.com/chiriket/Neighbourhood.git && cd Neighbourhood
 
 ### Activate virtual environment
 * Activate virtual environment using python3.6 as default handler
